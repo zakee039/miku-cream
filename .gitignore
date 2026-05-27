@@ -1,0 +1,15 @@
+# miku-cream theme .gitignore
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor configs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node (if ever used)
+node_modules/
