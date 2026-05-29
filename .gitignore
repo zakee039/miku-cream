@@ -13,3 +13,6 @@ desktop.ini
 
 # Node (if ever used)
 node_modules/
+
+# for reference
+default/
