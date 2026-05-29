@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html lang="zh-CN">
 <head>
-    <link rel="shortcut icon" href="/usr/themes/umaru/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/usr/themes/miku-cream/favicon.ico" type="image/x-icon" />
     <meta charset="<?php $this->options->charset(); ?>">
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
