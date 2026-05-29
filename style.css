@@ -3,7 +3,7 @@ Theme Name: miku-cream
 Theme URI: https://github.com/zakee/miku-cream
 Description: A clean, modern Typecho theme inspired by the Mastercard design system.
 Author: zakee
-Version: 1.1.3
+Version: 1.1.4
 */
 
 /* 1. CSS VARIABLES & SYSTEM RESET */
@@ -769,6 +769,51 @@ a {
     color: var(--slate-gray);
 }
 
+/* Table Styles */
+.post-content table {
+    width: 100%;
+    margin: 32px 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.01) 0px 4px 12px 0px;
+}
+
+.post-content th {
+    background-color: var(--canvas-cream);
+    color: var(--ink-black);
+    font-weight: 600;
+    padding: 14px 20px;
+    border-bottom: 1.5px solid var(--border-soft);
+    text-align: left;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+}
+
+.post-content td {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border-soft);
+    color: var(--ink-black);
+    background-color: var(--white);
+    transition: background-color 0.2s ease;
+}
+
+.post-content tr:last-child td {
+    border-bottom: none;
+}
+
+.post-content tr:nth-child(even) td {
+    background-color: var(--lifted-cream);
+}
+
+.post-content tr:hover td {
+    background-color: rgba(243, 115, 56, 0.03);
+}
+
 /* Comments Section */
 #comments {
     width: 100%;
@@ -993,6 +1038,12 @@ footer {
 
     .post-content h3 {
         font-size: 1.20rem;
+    }
+
+    .post-content table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     #comments {
