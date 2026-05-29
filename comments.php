@@ -8,7 +8,7 @@
         <?php $comments->listComments(); ?>
         
         <div class="pagination">
-            <?php $comments->pageNav('&laquo; ' . _t('前一页'), _t('后一页') . ' &raquo;'); ?>
+            <?php miku_cream_pagination($comments); ?>
         </div>
     <?php endif; ?>
 

@@ -52,7 +52,7 @@
 </div>
 
 <div class="pagination">
-    <?php $this->pageNav('&laquo; ' . _t('前一页'), _t('后一页') . ' &raquo;', 3, '', array('wrapTag' => 'ol', 'itemTag' => 'li')); ?>
+    <?php miku_cream_pagination($this); ?>
 </div>
 
 <?php $this->need('footer.php'); ?>

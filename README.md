@@ -4,7 +4,7 @@
 
 ![Typecho](https://img.shields.io/badge/Typecho-1.3%2B-orange?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
-![Version](https://img.shields.io/badge/Version-1.1.4-blue?style=flat-square)
+![Version](https://img.shields.io/badge/Version-1.1.5-blue?style=flat-square)
 
 ## 特性
 
@@ -56,7 +56,7 @@ miku-cream/
 |------|------|
 | **主题名** | miku-cream |
 | **作者** | zakee |
-| **版本** | 1.1.4 |
+| **版本** | 1.1.5 |
 | **适配** | Typecho 1.3+ |
 | **开源协议** | MIT |
 
