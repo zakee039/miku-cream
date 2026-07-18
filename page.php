@@ -2,7 +2,12 @@
 <?php $this->need('header.php'); ?>
 
 <!-- Independent pages intentionally keep their own HTML/CSS and native browser layout. -->
-<article class="page-plain" itemscope itemtype="http://schema.org/BlogPosting">
+<?php
+$pageSlug = strtolower(trim((string) $this->slug));
+$pageTitle = trim((string) $this->title);
+$isAboutPage = in_array($pageSlug, array('about', 'guanyu', 'guan-yu'), true) || $pageTitle === '关于';
+?>
+<article class="page-plain<?php echo $isAboutPage ? ' about-page' : ''; ?>" itemscope itemtype="http://schema.org/BlogPosting">
     <header>
         <h1 itemprop="name headline">
             <?php $this->title() ?>
