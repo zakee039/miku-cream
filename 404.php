@@ -17,7 +17,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php $this->options->themeUrl('style.css?v=1.1.11'); ?>">
+    <link rel="stylesheet" href="<?php $this->options->themeUrl('style.css?v=1.1.12'); ?>">
     <?php $this->header(); ?>
     <style>
         html, body {

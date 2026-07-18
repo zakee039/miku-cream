@@ -4,7 +4,7 @@
  * 
  * @package miku-cream
  * @author zakee
- * @version 1.1.11
+ * @version 1.1.12
  * @link https://github.com/zakee039/miku-cream
  */
 
