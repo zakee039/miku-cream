@@ -1,9 +1,9 @@
-/*
+﻿/*
 Theme Name: miku-cream
 Theme URI: https://github.com/zakee/miku-cream
 Description: A clean, modern Typecho theme inspired by the Mastercard design system.
 Author: zakee
-Version: 1.1.13
+Version: 1.2.0
 */
 
 /* 1. CSS VARIABLES & SYSTEM RESET */
@@ -715,7 +715,7 @@ body.menu-open {
 }
 
 .about-page > [itemprop="articleBody"] {
-    color: var(--slate-gray);
+    color: var(--ink-black);
     font-size: 16px;
     line-height: 1.85;
 }
@@ -759,18 +759,29 @@ body.menu-open {
 }
 
 .about-page > [itemprop="articleBody"] blockquote {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
     margin: 28px 0;
-    padding: 18px 22px;
+    padding: 12px 22px !important;
     border: 1px solid rgba(var(--interactive-accent-rgb), 0.18);
     border-left: 5px solid var(--interactive-accent);
     border-radius: 0 20px 20px 0;
     background: var(--lifted-cream);
     color: var(--ink-black);
     font-weight: 600;
+    line-height: 1.55;
+    text-align: center;
 }
 
-/* Existing About cards are authored with inline styles; normalize them here. */
-.about-page > [itemprop="articleBody"] > div:only-child {
+.about-page > [itemprop="articleBody"] blockquote p {
+    margin: 0 !important;
+    line-height: inherit !important;
+}
+
+/* Keep the page content open inside the outer About card. */
+.about-page > [itemprop="articleBody"] > div {
     margin: 0 !important;
     padding: 0 !important;
     border: 0 !important;
@@ -779,8 +790,8 @@ body.menu-open {
     box-shadow: none !important;
 }
 
-.about-page > [itemprop="articleBody"] > div:not(:only-child),
-.about-page > [itemprop="articleBody"] > div:only-child > div {
+/* Existing interest sections are authored with inline styles; keep only those as cards. */
+.about-page > [itemprop="articleBody"] > div > div:has(> h3) {
     margin: 24px 0;
     padding: 28px 30px !important;
     border: 1px solid var(--border-soft) !important;
@@ -791,7 +802,7 @@ body.menu-open {
 
 .about-page > [itemprop="articleBody"] p {
     margin: 0 0 18px !important;
-    color: var(--slate-gray) !important;
+    color: var(--ink-black) !important;
     font-size: 15px !important;
     line-height: 1.8 !important;
 }
@@ -826,8 +837,7 @@ body.menu-open {
         font-size: 16px;
     }
 
-    .about-page > [itemprop="articleBody"] > div:not(:only-child),
-    .about-page > [itemprop="articleBody"] > div:only-child > div {
+    .about-page > [itemprop="articleBody"] > div > div:has(> h3) {
         padding: 22px 20px !important;
         border-radius: 20px !important;
     }
@@ -1541,3 +1551,4 @@ footer {
         margin-top: 64px;
     }
 }
+

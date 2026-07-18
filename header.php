@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/katex.min.css" integrity="sha384-vlBdW0r3AcZO/HboRPznQNowvexd3fY8qHOWkBi5q7KGgqJ+F48+DceybYmrVbmB" crossorigin="anonymous">
-    <?php $themeStyleVersion = @filemtime(__DIR__ . '/style.css') ?: '1.1.13'; ?>
+    <?php $themeStyleVersion = @filemtime(__DIR__ . '/style.css') ?: '1.2.0'; ?>
     <link rel="stylesheet" href="<?php $this->options->themeUrl('style.css?v=' . $themeStyleVersion); ?>">
 
     <!-- Built-in code and formula rendering (falls back to readable source if a CDN is unavailable) -->
