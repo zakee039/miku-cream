@@ -4,7 +4,7 @@
 
 ![Typecho](https://img.shields.io/badge/Typecho-1.3%2B-orange?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
-![Version](https://img.shields.io/badge/Version-1.1.5-blue?style=flat-square)
+![Version](https://img.shields.io/badge/Version-1.1.11-blue?style=flat-square)
 
 ## 特性
 
@@ -13,6 +13,7 @@
 - 🗂 **桌面三列文章卡片**，平板双列，移动端单列自适应
 - 📱 **移动端抽屉式导航**，左上角浮动按钮，支持二级分类展开
 - 🔍 **悬停下拉子分类**，子项以圆角 chip 排列，透明桥接解决 hover 断层问题
+- 🧮 **内置代码与公式渲染**：主题自动调用 Highlight.js 和 KaTeX，支持常见代码块与 $...$、$$...$$、\(...\)、\[...\] 公式写法
 - 🌙 **深色圆角 Footer**，紧凑布局，支持动态登录状态检测与友情链接
 
 ## 截图
@@ -25,7 +26,7 @@
 miku-cream/
 ├── style.css        # 主样式表（CSS 变量 + 全局排版 + 响应式）
 ├── header.php       # 站点头部（品牌行 + 大葱分割线 + 导航行 + 移动端抽屉）
-├── footer.php       # 站点底部（友情链接 + 版权信息）
+├── footer.php       # 站点底部（登录状态 + 版权信息）
 ├── index.php        # 首页文章列表（三列卡片）
 ├── archive.php      # 分类/标签归档列表
 ├── post.php         # 单篇文章阅读页
@@ -56,7 +57,7 @@ miku-cream/
 |------|------|
 | **主题名** | miku-cream |
 | **作者** | zakee |
-| **版本** | 1.1.5 |
+| **版本** | 1.1.11 |
 | **适配** | Typecho 1.3+ |
 | **开源协议** | MIT |
 

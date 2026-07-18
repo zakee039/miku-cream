@@ -11,13 +11,13 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 <html lang="zh-CN">
 <head>
     <meta charset="<?php $this->options->charset(); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>404 Not Found - <?php $this->options->title(); ?></title>
-    <link rel="shortcut icon" href="/usr/themes/umaru/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="<?php $this->options->themeUrl('favicon.ico'); ?>" type="image/x-icon" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php $this->options->themeUrl('style.css?v=1.1.2'); ?>">
+    <link rel="stylesheet" href="<?php $this->options->themeUrl('style.css?v=1.1.11'); ?>">
     <?php $this->header(); ?>
     <style>
         html, body {
@@ -120,7 +120,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             <a href="<?php $this->options->siteUrl(); ?>" class="btn-primary">
                 &larr; <?php _e('返回首页'); ?>
             </a>
-            <a href="javascript:history.back()" class="btn-secondary">
+            <a href="<?php $this->options->siteUrl(); ?>" class="btn-secondary">
                 <?php _e('返回上一页'); ?>
             </a>
         </div>

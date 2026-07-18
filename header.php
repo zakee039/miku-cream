@@ -2,10 +2,10 @@
 <!DOCTYPE HTML>
 <html lang="zh-CN">
 <head>
-    <link rel="shortcut icon" href="/usr/themes/miku-cream/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="<?php $this->options->themeUrl('favicon.ico'); ?>" type="image/x-icon" />
     <meta charset="<?php $this->options->charset(); ?>">
     <meta name="renderer" content="webkit">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <!-- Title Tag -->
     <title><?php $this->archiveTitle([
@@ -19,7 +19,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php $this->options->themeUrl('style.css?v=1.1.5'); ?>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/katex.min.css" integrity="sha384-vlBdW0r3AcZO/HboRPznQNowvexd3fY8qHOWkBi5q7KGgqJ+F48+DceybYmrVbmB" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?php $this->options->themeUrl('style.css?v=1.1.11'); ?>">
+
+    <!-- Built-in code and formula rendering (falls back to readable source if a CDN is unavailable) -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/katex.min.js" integrity="sha384-AtrdNsnxl/75rvBneBVH7DtOvCxSVahR2zWqle1coBKd8DEmLoviqNeJSx64gNAs" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous"></script>
 
     <!-- Typecho Header Outputs -->
     <?php $this->header(); ?>
@@ -27,11 +34,11 @@
 <body>
 
 <!-- Mobile Left-Top Floating Toggle -->
-<button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Toggle Menu">&gt;</button>
+<button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="打开菜单" aria-expanded="false" aria-controls="mobileDrawer">&gt;</button>
 
 <!-- Mobile Off-Canvas Drawer -->
 <div id="mobileDrawerOverlay" class="mobile-drawer-overlay"></div>
-<div id="mobileDrawer" class="mobile-drawer">
+<div id="mobileDrawer" class="mobile-drawer" aria-hidden="true">
     <div class="mobile-nav-content">
         <div id="mobileMenuPane" class="mobile-menu-pane">
             <ul class="mobile-list" id="mobileMenuList">
@@ -88,13 +95,13 @@
                     </li>
                     <?php foreach ($pageList as $p): ?>
                     <li class="nav-item <?php if($this->is('page', $p['slug'])): ?>active<?php endif; ?>">
-                        <a class="nav-link" href="<?php echo $p['permalink']; ?>"><?php echo $p['title']; ?></a>
+                        <a class="nav-link" href="<?php echo htmlspecialchars($p['permalink'], ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($p['title'], ENT_QUOTES, 'UTF-8'); ?></a>
                     </li>
                     <?php endforeach; ?>
                     <?php foreach ($categoryTree as $cat): ?>
                     <li class="nav-item <?php if($this->is('category', $cat['slug'])): ?>active<?php endif; ?>">
-                        <a class="nav-link" href="<?php echo $cat['permalink']; ?>">
-                            <?php echo $cat['name']; ?>
+                        <a class="nav-link" href="<?php echo htmlspecialchars($cat['permalink'], ENT_QUOTES, 'UTF-8'); ?>">
+                            <?php echo htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8'); ?>
                             <?php if (!empty($cat['children'])): ?>
                                 <span style="font-size: 10px; margin-left: 2px;">▼</span>
                             <?php endif; ?>
@@ -103,7 +110,7 @@
                         <ul class="dropdown-menu">
                             <?php foreach ($cat['children'] as $child): ?>
                             <li class="dropdown-item">
-                                <a href="<?php echo $child['permalink']; ?>"><?php echo $child['name']; ?></a>
+                                <a href="<?php echo htmlspecialchars($child['permalink'], ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($child['name'], ENT_QUOTES, 'UTF-8'); ?></a>
                             </li>
                             <?php endforeach; ?>
                         </ul>
@@ -132,9 +139,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuList = document.getElementById('mobileMenuList');
 
     // Data passed from PHP
-    const pages = <?php echo json_encode($pageList); ?>;
-    const categoryTree = <?php echo json_encode($categoryTree); ?>;
-    const siteUrl = "<?php $this->options->siteUrl(); ?>";
+    const pages = <?php echo json_encode($pageList, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+    const categoryTree = <?php echo json_encode($categoryTree, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+    const siteUrl = <?php echo json_encode((string) $this->options->siteUrl, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
 
     let isOpen = false;
 
@@ -149,19 +156,44 @@ document.addEventListener('DOMContentLoaded', function() {
 
     mobileDrawerOverlay.addEventListener('click', closeMenu);
 
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && isOpen) {
+            closeMenu();
+        }
+    });
+
+    function createLink(label, href) {
+        const link = document.createElement('a');
+        link.href = href;
+        link.textContent = label;
+        link.addEventListener('click', closeMenu);
+        return link;
+    }
+
     function openMenu() {
         isOpen = true;
         mobileDrawer.classList.add('active');
         mobileDrawerOverlay.classList.add('active');
-        mobileMenuBtn.innerHTML = '&lt;';
+        mobileMenuBtn.textContent = '<';
+        mobileMenuBtn.setAttribute('aria-label', '关闭菜单');
+        mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        mobileDrawer.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('menu-open');
         renderFirstLevel();
+        const firstFocusable = mobileMenuList.querySelector('a, button');
+        if (firstFocusable) firstFocusable.focus();
     }
 
     function closeMenu() {
         isOpen = false;
         mobileDrawer.classList.remove('active');
         mobileDrawerOverlay.classList.remove('active');
-        mobileMenuBtn.innerHTML = '&gt;';
+        mobileMenuBtn.textContent = '>';
+        mobileMenuBtn.setAttribute('aria-label', '打开菜单');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        mobileDrawer.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('menu-open');
+        mobileMenuBtn.focus();
     }
 
     // Render first level menu (Home, Pages, Top-level categories)
@@ -171,16 +203,14 @@ document.addEventListener('DOMContentLoaded', function() {
         // 1. Home Link
         const homeLi = document.createElement('li');
         homeLi.className = 'mobile-list-item';
-        homeLi.innerHTML = `<a href="${siteUrl}">首页</a>`;
-        homeLi.querySelector('a').addEventListener('click', closeMenu);
+        homeLi.appendChild(createLink('首页', siteUrl));
         mobileMenuList.appendChild(homeLi);
 
         // 2. Static Pages
         pages.forEach(p => {
             const pageLi = document.createElement('li');
             pageLi.className = 'mobile-list-item';
-            pageLi.innerHTML = `<a href="${p.permalink}">${p.title}</a>`;
-            pageLi.querySelector('a').addEventListener('click', closeMenu);
+            pageLi.appendChild(createLink(p.title, p.permalink));
             mobileMenuList.appendChild(pageLi);
         });
 
@@ -192,7 +222,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (cat.children && cat.children.length > 0) {
                 // If it has children, clicking switches to second level
                 const btn = document.createElement('button');
-                btn.innerHTML = `<span>${cat.name}</span><span>&gt;</span>`;
+                const label = document.createElement('span');
+                label.textContent = cat.name;
+                const indicator = document.createElement('span');
+                indicator.textContent = '>';
+                btn.appendChild(label);
+                btn.appendChild(indicator);
                 btn.addEventListener('click', function() {
                     renderSecondLevel(cat);
                 });
@@ -217,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const backBtnLi = document.createElement('li');
         const backBtn = document.createElement('button');
         backBtn.className = 'mobile-back-btn';
-        backBtn.innerHTML = '&lt; 返回一级分类';
+        backBtn.textContent = '< 返回一级分类';
         backBtn.addEventListener('click', renderFirstLevel);
         backBtnLi.appendChild(backBtn);
         mobileMenuList.appendChild(backBtnLi);
@@ -225,19 +260,44 @@ document.addEventListener('DOMContentLoaded', function() {
         // Include "View All" link for the parent category itself
         const allParentLi = document.createElement('li');
         allParentLi.className = 'mobile-list-item';
-        allParentLi.innerHTML = `<a href="${parentCat.permalink}" style="font-weight: 700;">查看全部: ${parentCat.name}</a>`;
-        allParentLi.querySelector('a').addEventListener('click', closeMenu);
+        const allParentLink = createLink('查看全部: ' + parentCat.name, parentCat.permalink);
+        allParentLink.style.fontWeight = '700';
+        allParentLi.appendChild(allParentLink);
         mobileMenuList.appendChild(allParentLi);
 
         // Subcategories
         parentCat.children.forEach(child => {
             const childLi = document.createElement('li');
             childLi.className = 'mobile-list-item';
-            childLi.innerHTML = `<a href="${child.permalink}">${child.name}</a>`;
-            childLi.querySelector('a').addEventListener('click', closeMenu);
+            childLi.appendChild(createLink(child.name, child.permalink));
             mobileMenuList.appendChild(childLi);
         });
     }
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.post-content').forEach(function(content) {
+        if (window.hljs) {
+            content.querySelectorAll('pre code').forEach(function(block) {
+                window.hljs.highlightElement(block);
+            });
+        }
+
+        if (window.renderMathInElement) {
+            window.renderMathInElement(content, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false},
+                    {left: '\\(', right: '\\)', display: false},
+                    {left: '\\[', right: '\\]', display: true}
+                ],
+                throwOnError: false,
+                ignoredClasses: ['no-math']
+            });
+        }
+    });
 });
 </script>
 
