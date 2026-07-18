@@ -683,7 +683,7 @@ body.menu-open {
 .about-page {
     max-width: 1120px;
     margin: 32px auto 72px;
-    padding: 64px clamp(28px, 6vw, 76px);
+    padding: 48px clamp(24px, 4vw, 52px);
     border: 1px solid rgba(20, 20, 19, 0.08);
     border-radius: 34px;
     background: rgba(255, 255, 255, 0.88);
@@ -699,16 +699,16 @@ body.menu-open {
 .about-page > header h1 {
     position: relative;
     display: inline-block;
-    font-size: clamp(2.6rem, 6vw, 4.6rem);
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
     line-height: 1;
-    letter-spacing: -0.06em;
+    letter-spacing: -0.04em;
 }
 
 .about-page > header h1::after {
     display: block;
-    width: 72px;
-    height: 6px;
-    margin-top: 18px;
+    width: 56px;
+    height: 4px;
+    margin-top: 12px;
     border-radius: 999px;
     background: var(--interactive-accent);
     content: "";
@@ -716,7 +716,7 @@ body.menu-open {
 
 .about-page > [itemprop="articleBody"] {
     color: var(--slate-gray);
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.85;
 }
 
@@ -727,7 +727,7 @@ body.menu-open {
 
 .about-page > [itemprop="articleBody"] > p:first-child {
     color: var(--ink-black);
-    font-size: 1.16em;
+    font-size: 1.08em;
     font-weight: 600;
     line-height: 1.75;
 }
@@ -736,9 +736,9 @@ body.menu-open {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin: 56px 0 20px;
+    margin: 44px 0 18px;
     color: var(--ink-black);
-    font-size: clamp(1.55rem, 3vw, 2.15rem);
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
     line-height: 1.25;
 }
 
@@ -759,8 +759,8 @@ body.menu-open {
 }
 
 .about-page > [itemprop="articleBody"] blockquote {
-    margin: 36px 0;
-    padding: 22px 28px;
+    margin: 28px 0;
+    padding: 18px 22px;
     border: 1px solid rgba(var(--interactive-accent-rgb), 0.18);
     border-left: 5px solid var(--interactive-accent);
     border-radius: 0 20px 20px 0;
@@ -770,7 +770,17 @@ body.menu-open {
 }
 
 /* Existing About cards are authored with inline styles; normalize them here. */
-.about-page > [itemprop="articleBody"] > div {
+.about-page > [itemprop="articleBody"] > div:only-child {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.about-page > [itemprop="articleBody"] > div:not(:only-child),
+.about-page > [itemprop="articleBody"] > div:only-child > div {
     margin: 24px 0;
     padding: 28px 30px !important;
     border: 1px solid var(--border-soft) !important;
@@ -779,7 +789,7 @@ body.menu-open {
     box-shadow: rgba(20, 20, 19, 0.04) 0 10px 30px !important;
 }
 
-.about-page > [itemprop="articleBody"] > div > p {
+.about-page > [itemprop="articleBody"] p {
     margin: 0 0 18px !important;
     color: var(--slate-gray) !important;
     font-size: 15px !important;
@@ -803,7 +813,7 @@ body.menu-open {
 @media (max-width: 700px) {
     .about-page {
         margin: 20px auto 48px;
-        padding: 40px 22px;
+        padding: 34px 20px;
         border-radius: 24px;
     }
 
@@ -816,7 +826,8 @@ body.menu-open {
         font-size: 16px;
     }
 
-    .about-page > [itemprop="articleBody"] > div {
+    .about-page > [itemprop="articleBody"] > div:not(:only-child),
+    .about-page > [itemprop="articleBody"] > div:only-child > div {
         padding: 22px 20px !important;
         border-radius: 20px !important;
     }
