@@ -10,7 +10,33 @@
     </header>
 
     <div itemprop="articleBody">
-        <?php $this->content(); ?>
+        <?php
+        ob_start();
+        $this->content();
+        $pageContent = ob_get_clean();
+
+        /*
+         * Independent pages may contain a complete HTML layout inside a
+         * Markdown code fence. Restore only blocks that clearly contain
+         * HTML structure; ordinary code examples remain untouched.
+         */
+        $pageContent = preg_replace_callback(
+            '#<pre(?:\s[^>]*)?>\s*<code(?:\s[^>]*)?>(.*?)</code>\s*</pre>#is',
+            static function ($match) {
+                $html = html_entity_decode($match[1], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                $hasHtmlTag = preg_match(
+                    '/<\s*(?:p|div|section|article|span|h[1-6]|ul|ol|li|img|a|table|blockquote)\b/i',
+                    $html
+                );
+                $hasClosingTag = preg_match('/<\s*\/\s*[a-z][^>]*>/i', $html);
+
+                return ($hasHtmlTag && $hasClosingTag) ? $html : $match[0];
+            },
+            $pageContent
+        );
+
+        echo $pageContent;
+        ?>
     </div>
 </article>
 
