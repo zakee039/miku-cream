@@ -2,6 +2,8 @@
 
 一个为 [Typecho](https://typecho.org) 设计的极简响应式主题，灵感来自暖奶油色调与初音未来。
 
+[个人主页](https://zakee.fun) · [Buy me a coffee](https://ifdian.net/a/zakee/plan)
+
 ![Typecho](https://img.shields.io/badge/Typecho-1.3%2B-orange?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 ![Version](https://img.shields.io/badge/Version-1.2.0-blue?style=flat-square)
