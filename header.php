@@ -19,9 +19,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/katex.min.css" integrity="sha384-vlBdW0r3AcZO/HboRPznQNowvexd3fY8qHOWkBi5q7KGgqJ+F48+DceybYmrVbmB" crossorigin="anonymous">
-    <?php $themeStyleVersion = @filemtime(__DIR__ . '/style.css') ?: '1.2.0'; ?>
+    <?php $themeStyleVersion = @filemtime(__DIR__ . '/style.css') ?: '1.3.0'; ?>
     <link rel="stylesheet" href="<?php $this->options->themeUrl('style.css?v=' . $themeStyleVersion); ?>">
 
     <!-- Built-in code and formula rendering (falls back to readable source if a CDN is unavailable) -->
@@ -280,11 +279,102 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.post-content').forEach(function(content) {
-        if (window.hljs) {
-            content.querySelectorAll('pre code').forEach(function(block) {
+        content.querySelectorAll('pre code').forEach(function(block) {
+            if (window.hljs) {
                 window.hljs.highlightElement(block);
+            }
+
+            const pre = block.closest('pre');
+            if (!pre || pre.dataset.mikuCodeEnhanced === '1') {
+                return;
+            }
+            pre.dataset.mikuCodeEnhanced = '1';
+
+            const shell = document.createElement('div');
+            shell.className = 'miku-code-shell';
+            pre.parentNode.insertBefore(shell, pre);
+            shell.appendChild(pre);
+
+            let source = block.textContent || '';
+            if (source.endsWith('\n')) {
+                source = source.slice(0, -1);
+            }
+            const lineCount = Math.max(1, source.split('\n').length);
+            const rail = document.createElement('div');
+            rail.className = 'miku-code-line-numbers';
+            rail.setAttribute('aria-hidden', 'true');
+
+            const fragment = document.createDocumentFragment();
+            for (let i = 1; i <= lineCount; i += 1) {
+                const line = document.createElement('span');
+                line.textContent = String(i);
+                fragment.appendChild(line);
+            }
+            rail.appendChild(fragment);
+            shell.appendChild(rail);
+
+            const tools = document.createElement('div');
+            tools.className = 'miku-code-tools';
+
+            const languageClass = Array.from(block.classList).find(function(name) {
+                return name.startsWith('language-') || name.startsWith('lang-');
             });
-        }
+            const detectedLanguage = languageClass
+                ? languageClass.replace(/^language-|^lang-/, '')
+                : (block.result && block.result.language ? block.result.language : '');
+
+            if (detectedLanguage) {
+                const language = document.createElement('span');
+                language.className = 'miku-code-language';
+                language.textContent = detectedLanguage;
+                tools.appendChild(language);
+            }
+
+            const copy = document.createElement('button');
+            copy.type = 'button';
+            copy.className = 'miku-code-copy';
+            copy.textContent = 'Copy';
+            copy.setAttribute('aria-label', 'Copy code');
+            copy.addEventListener('click', async function() {
+                const text = block.textContent || '';
+                let copied = false;
+                try {
+                    if (navigator.clipboard && window.isSecureContext) {
+                        await navigator.clipboard.writeText(text);
+                        copied = true;
+                    }
+                } catch (error) {
+                    copied = false;
+                }
+
+                if (!copied) {
+                    const textarea = document.createElement('textarea');
+                    textarea.value = text;
+                    textarea.setAttribute('readonly', '');
+                    textarea.style.position = 'fixed';
+                    textarea.style.opacity = '0';
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    copied = document.execCommand('copy');
+                    textarea.remove();
+                }
+
+                if (!copied) {
+                    return;
+                }
+
+                copy.classList.remove('is-returning');
+                copy.classList.add('is-success');
+                window.setTimeout(function() {
+                    copy.classList.add('is-returning');
+                }, 620);
+                window.setTimeout(function() {
+                    copy.classList.remove('is-success', 'is-returning');
+                }, 900);
+            });
+            tools.appendChild(copy);
+            shell.appendChild(tools);
+        });
 
         if (window.renderMathInElement) {
             window.renderMathInElement(content, {
