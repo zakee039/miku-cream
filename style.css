@@ -1,9 +1,9 @@
 ﻿/*
 Theme Name: miku-cream
-Theme URI: https://github.com/zakee/miku-cream
+Theme URI: https://github.com/zakee039/miku-cream
 Description: A clean, modern Typecho theme inspired by the Mastercard design system.
 Author: zakee
-Version: 1.3.0
+Version: 1.3.1
 */
 
 /* 1. CSS VARIABLES & SYSTEM RESET */
@@ -994,15 +994,20 @@ body.menu-open {
 
 .post-content kbd {
     display: inline-block;
-    padding: 0.1em 0.5em;
-    border: 1px solid rgba(20, 20, 19, 0.2);
-    border-bottom-width: 2px;
-    border-radius: 6px;
-    background: var(--lifted-cream);
-    color: var(--ink-black);
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-    font-size: 0.84em;
-    line-height: 1.4;
+    min-width: 1.35em;
+    margin: 0 0.08em;
+    padding: 0.08em 0.42em;
+    color: #353330;
+    background: linear-gradient(#FCFBFA, #F3F0EE);
+    border: 1px solid #CFC9C2;
+    border-bottom-color: #B7B0A8;
+    border-radius: 5px;
+    box-shadow: 0 1px 0 rgba(20, 20, 19, 0.08);
+    font-family: var(--font-sans);
+    font-size: 0.86em;
+    font-weight: 600;
+    line-height: 1.35;
+    text-align: center;
     white-space: nowrap;
 }
 
@@ -1126,14 +1131,25 @@ body.menu-open {
 }
 
 .post-content summary {
-    color: var(--ink-black);
+    margin: -3px -6px;
+    padding: 3px 6px;
+    color: #176F68;
     font-weight: 600;
     cursor: pointer;
+    border-radius: 6px;
+}
+
+.post-content summary::marker {
+    color: #176F68;
+}
+
+.post-content summary:hover {
+    background: #E2F4F1;
 }
 
 .post-content details[open] summary {
-    margin-bottom: 12px;
-    color: var(--interactive-accent-dark);
+    margin-bottom: 9px;
+    color: #176F68;
 }
 
 /* Keep links in article and page content visually distinct from body text. */
@@ -1173,6 +1189,26 @@ body.menu-open {
     border-radius: 20px;
     margin: 24px 0;
     box-shadow: rgba(0,0,0,0.05) 0px 8px 24px;
+}
+
+/* MDmeow/Typedown-compatible raw HTML image alignment.
+   Keep standard/legacy align attributes working as a graceful fallback too. */
+.post-content img[data-align="left"],
+.post-content img[align="left"] {
+    display: block;
+    margin: 24px auto 24px 0;
+}
+
+.post-content img[data-align="center"],
+.post-content img[align="center"] {
+    display: block;
+    margin: 24px auto;
+}
+
+.post-content img[data-align="right"],
+.post-content img[align="right"] {
+    display: block;
+    margin: 24px 0 24px auto;
 }
 
 .post-content blockquote {
@@ -1339,11 +1375,20 @@ body.menu-open {
     border: 1px solid #C6E9E5;
     border-radius: 5px;
     background: #E2F4F1;
-    color: #176F68;
+    color: #5C2E91;
     font-family: Consolas, "Courier New", Courier, monospace;
     font-size: 0.87em;
+    font-weight: 500;
     line-height: 1.45;
     overflow-wrap: anywhere;
+}
+
+.post-content strong code:not(pre code),
+.post-content b code:not(pre code),
+.post-content code:not(pre code) strong,
+.post-content code:not(pre code) b {
+    color: #4B2478;
+    font-weight: 700;
 }
 
 /* highlight.js — Miku Cream syntax palette */

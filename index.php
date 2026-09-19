@@ -4,8 +4,8 @@
  * 
  * @package miku-cream
  * @author zakee
- * @version 1.3.0
- * @link https://github.com/zakee/miku-cream
+ * @version 1.3.1
+ * @link https://github.com/zakee039/miku-cream
  */
 
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;

@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/katex.min.css" integrity="sha384-vlBdW0r3AcZO/HboRPznQNowvexd3fY8qHOWkBi5q7KGgqJ+F48+DceybYmrVbmB" crossorigin="anonymous">
-    <?php $themeStyleVersion = @filemtime(__DIR__ . '/style.css') ?: '1.3.0'; ?>
+    <?php $themeStyleVersion = @filemtime(__DIR__ . '/style.css') ?: '1.3.1'; ?>
     <link rel="stylesheet" href="<?php $this->options->themeUrl('style.css?v=' . $themeStyleVersion); ?>">
 
     <!-- Built-in code and formula rendering (falls back to readable source if a CDN is unavailable) -->
