@@ -3,7 +3,7 @@ Theme Name: miku-cream
 Theme URI: https://github.com/zakee039/miku-cream
 Description: A clean, modern Typecho theme inspired by the Mastercard design system.
 Author: zakee
-Version: 1.3.1
+Version: 1.3.2
 */
 
 /* 1. CSS VARIABLES & SYSTEM RESET */
@@ -929,6 +929,11 @@ body.menu-open {
     list-style-type: decimal;
 }
 
+/* Unordered list bullets use the Miku accent teal, matching the UI accent. */
+.post-content ul li::marker {
+    color: var(--interactive-accent);
+}
+
 .post-content li {
     margin-bottom: 8px;
     line-height: 1.65;
@@ -1212,7 +1217,7 @@ body.menu-open {
 }
 
 .post-content blockquote {
-    border-left: 4px solid var(--light-signal-orange);
+    border-left: 4px solid var(--interactive-accent);
     padding-left: 20px;
     margin: 32px 0;
     font-style: italic;
